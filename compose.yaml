@@ -1,9 +1,19 @@
 services:
+#  api:
+#    build:
+#      context: .
+#      dockerfile: docker/api/Dockerfile
+#    environment:
+#      DATABASE_URL: "jdbc:postgresql://postgres:5432/shortener"
+#      DATABASE_USERNAME: "shortener"
+#      DATABASE_PASSWORD: "shortener"
+#    ports:
+#      - '8080'
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:16-alpine3.20'
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_DB=shortener'
+      - 'POSTGRES_PASSWORD=shortener'
+      - 'POSTGRES_USER=shortener'
     ports:
-      - '5432'
+      - '5432:5432'

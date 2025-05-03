@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: "com.michael-petri.shortener"
+  main:
+    banner-mode: off
+    log-startup-info: false
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    validateOnMigrate: true
+    locations: classpath:/db/migration
+
+#logging.level.org.springframework.web.reactive: DEBUG
+#logging.level.org.springframework.validation: DEBUG
+#logging.level.org.springframework.boot.autoconfigure.web.reactive.error: DEBUG
+
+shortener:
+  base_url: "https://michael-petri.com"
