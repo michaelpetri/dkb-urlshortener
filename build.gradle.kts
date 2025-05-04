@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
+    kotlin("jvm") version "2.1.0"
+    kotlin("plugin.spring") version "2.1.0"
     id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.jlleitschuh.gradle.ktlint") version "12.2.0"
@@ -49,6 +49,11 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.17.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    val ktorClientVersion = "3.1.2"
+    testImplementation("io.ktor:ktor-client-core:$ktorClientVersion")
+    testImplementation("io.ktor:ktor-client-cio:$ktorClientVersion")
+    testImplementation("io.ktor:ktor-client-content-negotiation:$ktorClientVersion")
+    testImplementation("io.ktor:ktor-serialization-kotlinx-json:$ktorClientVersion")
 }
 
 dependencyManagement {
@@ -63,12 +68,12 @@ kotlin {
     }
 }
 
-allOpen {
-    annotation("jakarta.persistence.Entity")
-    annotation("jakarta.persistence.MappedSuperclass")
-    annotation("jakarta.persistence.Embeddable")
+ktlint {
+    version.set("1.4.1")
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags = setOf("load-test")
+    }
 }

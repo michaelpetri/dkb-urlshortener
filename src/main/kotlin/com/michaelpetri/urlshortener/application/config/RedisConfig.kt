@@ -11,7 +11,8 @@ import java.time.Duration
 class RedisConfig {
     @Bean
     fun cacheConfiguration() =
-        RedisCacheConfiguration.defaultCacheConfig()
+        RedisCacheConfiguration
+            .defaultCacheConfig()
             .entryTtl(Duration.ofMinutes(60))
             .disableCachingNullValues()
             .serializeValuesWith(

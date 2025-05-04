@@ -1,4 +1,4 @@
-package com.michaelpetri.urlshortener.infrastructure.redis
+package com.michaelpetri.urlshortener.infrastructure.cache
 
 import com.michaelpetri.urlshortener.domain.model.ShortUrl
 import com.michaelpetri.urlshortener.domain.repository.ShortUrlRepository
@@ -11,7 +11,7 @@ import java.net.URL
 
 @Primary
 @Service
-class ShortUrlRedisRepository(
+class ShortUrlCacheRepository(
     private val next: ShortUrlRepository,
     cacheManager: CacheManager,
 ) : ShortUrlRepository {

@@ -36,16 +36,20 @@ class ShortenerControllerTest {
 
         // Act
         val response =
-            webTestClient.post()
+            webTestClient
+                .post()
                 .uri("/api/short-url")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(mapOf("url" to originalUrl))
                 .exchange()
 
         // Assert
-        response.expectStatus().isOk
+        response
+            .expectStatus()
+            .isOk
             .expectBody()
-            .jsonPath("$.url").value<String> {
+            .jsonPath("$.url")
+            .value<String> {
                 it shouldBe "${config.baseUrl}/2"
             }
     }
@@ -57,7 +61,8 @@ class ShortenerControllerTest {
 
         // Act
         val response =
-            webTestClient.post()
+            webTestClient
+                .post()
                 .uri("/api/short-url")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(mapOf("url" to originalUrl))
@@ -65,10 +70,10 @@ class ShortenerControllerTest {
 
         // Assert
         response
-            .expectStatus().value {
+            .expectStatus()
+            .value {
                 it shouldBe HttpStatus.UNPROCESSABLE_ENTITY.value()
-            }
-            .expectBody()
+            }.expectBody()
             .containsValidationError()
             .containsDetails(
                 "url" to
@@ -85,7 +90,8 @@ class ShortenerControllerTest {
 
         // Act
         val response =
-            webTestClient.post()
+            webTestClient
+                .post()
                 .uri("/api/short-url")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(mapOf("url" to originalUrl))
@@ -93,10 +99,10 @@ class ShortenerControllerTest {
 
         // Assert
         response
-            .expectStatus().value {
+            .expectStatus()
+            .value {
                 it shouldBe HttpStatus.UNPROCESSABLE_ENTITY.value()
-            }
-            .expectBody()
+            }.expectBody()
             .containsValidationError()
             .containsDetails(
                 "url" to
@@ -113,7 +119,8 @@ class ShortenerControllerTest {
 
         // Act
         val response =
-            webTestClient.post()
+            webTestClient
+                .post()
                 .uri("/api/short-url")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(mapOf("url" to originalUrl))
@@ -121,10 +128,10 @@ class ShortenerControllerTest {
 
         // Assert
         response
-            .expectStatus().value {
+            .expectStatus()
+            .value {
                 it shouldBe HttpStatus.UNPROCESSABLE_ENTITY.value()
-            }
-            .expectBody()
+            }.expectBody()
             .containsValidationError()
             .containsDetails(
                 "url" to
@@ -142,7 +149,8 @@ class ShortenerControllerTest {
 
         // Act
         val response =
-            webTestClient.post()
+            webTestClient
+                .post()
                 .uri("/api/short-url")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(body)
@@ -150,10 +158,10 @@ class ShortenerControllerTest {
 
         // Assert
         response
-            .expectStatus().value {
+            .expectStatus()
+            .value {
                 it shouldBe HttpStatus.UNPROCESSABLE_ENTITY.value()
-            }
-            .expectBody()
+            }.expectBody()
             .containsValidationError()
             .containsDetails(
                 "url" to

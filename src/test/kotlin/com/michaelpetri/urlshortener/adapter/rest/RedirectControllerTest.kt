@@ -34,12 +34,14 @@ class RedirectControllerTest {
 
         // Act
         val response =
-            webTestClient.get()
+            webTestClient
+                .get()
                 .uri("/${shortId.encode()}")
                 .exchange()
 
         // Assert
-        response.expectStatus()
+        response
+            .expectStatus()
             .is3xxRedirection
             .expectHeader()
             .location(originalUrl.toString())
@@ -52,7 +54,8 @@ class RedirectControllerTest {
 
         // Act
         val response =
-            webTestClient.get()
+            webTestClient
+                .get()
                 .uri("/${invalidShortId.value}")
                 .exchange()
 

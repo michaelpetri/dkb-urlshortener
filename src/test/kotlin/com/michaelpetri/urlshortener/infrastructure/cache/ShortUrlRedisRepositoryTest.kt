@@ -1,4 +1,4 @@
-package com.michaelpetri.urlshortener.infrastructure.redis
+package com.michaelpetri.urlshortener.infrastructure.cache
 
 import com.michaelpetri.urlshortener.domain.exception.ShortUrlNotFound
 import com.michaelpetri.urlshortener.domain.value.ShortId
@@ -23,7 +23,7 @@ import kotlin.test.assertEquals
 @Testcontainers
 class ShortUrlRedisRepositoryTest {
     @Autowired
-    lateinit var repository: ShortUrlRedisRepository
+    lateinit var repository: ShortUrlCacheRepository
 
     @Autowired
     lateinit var cacheManager: CacheManager
@@ -69,7 +69,8 @@ class ShortUrlRedisRepositoryTest {
         val originalUrl = URI("https://example.tld/foo").toURL()
         val shortId = next.save(originalUrl)
 
-        cacheManager.getCache(CACHE_NAME)!!
+        cacheManager
+            .getCache(CACHE_NAME)!!
             .put(shortId.value, originalUrl.toString())
 
         // Act

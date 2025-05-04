@@ -1,19 +1,32 @@
 services:
-#  api:
-#    build:
-#      context: .
-#      dockerfile: docker/api/Dockerfile
-#    environment:
-#      DATABASE_URL: "jdbc:postgresql://postgres:5432/shortener"
-#      DATABASE_USERNAME: "shortener"
-#      DATABASE_PASSWORD: "shortener"
-#    ports:
-#      - '8080'
-  postgres:
-    image: 'postgres:16-alpine3.20'
+  api:
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
     environment:
-      - 'POSTGRES_DB=shortener'
-      - 'POSTGRES_PASSWORD=shortener'
-      - 'POSTGRES_USER=shortener'
+      DATABASE_URL: "jdbc:postgresql://postgres:5432/shortener"
+      DATABASE_USERNAME: "shortener"
+      DATABASE_PASSWORD: "shortener"
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - '8080:8080'
+  postgres:
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
+    environment:
+      POSTGRES_DB: "shortener"
+      POSTGRES_USER: "shortener"
+      POSTGRES_PASSWORD: "shortener"
     ports:
       - '5432:5432'
+  redis:
+    build:
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    ports:
+      - '6379:6379'

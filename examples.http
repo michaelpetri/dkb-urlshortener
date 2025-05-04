@@ -1,0 +1,9 @@
+### Create short url
+POST http://localhost:8080/api/short-url
+Content-Type: application/json
+
+{"url": "https://google.com"}
+
+### Redirect to long destination
+@shortId = generated-short-id
+GET http://localhost:8080/{{shortId}}

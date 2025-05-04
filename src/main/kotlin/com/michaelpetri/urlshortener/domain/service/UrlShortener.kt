@@ -22,7 +22,8 @@ class SimpleUrlShortener(
         val id = urls.save(url)
 
         val uri =
-            UriComponentsBuilder.fromUriString(baseUrl.toString())
+            UriComponentsBuilder
+                .fromUriString(baseUrl.toString())
                 .pathSegment(id.encode())
                 .build()
                 .toUri()
